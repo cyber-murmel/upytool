@@ -32,6 +32,13 @@ optional arguments:
                         or downloaded to
 ```
 
+## Features
+The tool issues a reset via the `RTS` UART flow control line and sets `DTR` so
+that the ESP gets into [Normal execution mode](https://github.com/espressif/esptool/wiki/ESP8266-Boot-Mode-Selection#select-bootloader-mode).
+This should make it compatible with most devboards.
+The tool also issues a `Ctrl+c` after reboot so that a maybe running `boot.py`
+or `main.py` will be interrupted.
+
 ## Examples
 
 ### Delete Everything on MicroPython Device
