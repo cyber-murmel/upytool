@@ -13,20 +13,19 @@ from logging  import ERROR, WARNING, INFO, DEBUG, NOTSET
 CHUNK_SIZE = 64*2
 
 def parse_arguments():
-    parser = ArgumentParser(description='Tool to assign MPNs to symbols in a KiCAD schematic')
+    parser = ArgumentParser(description='Tool to up- and download files to and from micropython.')
     verbose = parser.add_mutually_exclusive_group()
     operation = parser.add_mutually_exclusive_group()
     verbose.add_argument(  "-q", "--quiet",    action = "store_true",                help = "turn off warnings")
-    verbose.add_argument(  "-v",               action = "count",                     help = "set loglevel")
-    parser.add_argument(   "-p", "--port",     type = str, default = "/dev/ttyUSB0", help = "path serial device")
-    parser.add_argument(   "-b", "--baud",     type = int, default = 115200,         help = "baud rate")
-    operation.add_argument("-u", "--upload",   type = str,                           help = "file to upload to MicroPython device")
-    operation.add_argument("-d", "--download", type = str,                           help = "file to download from MicroPython device")
-    operation.add_argument("-r", "--remove",   type = str,                           help = "file or directory to remove on MicroPython device")
-    operation.add_argument("-l", "--list",     type = str,                           help = "file or directory to list contents of")
-    operation.add_argument("-m", "--mkdir",    type = str,                           help = "path of directory to create on MicroPython device")
-    parser.add_argument(   "-o", "--override", action = "store_true",                help = "override files and create necessary direcotries on MicroPython device")
-    parser.add_argument(   "-f", "--file",     type = str, default = "",             help = "path to file on local filesystem")
+    verbose.add_argument(  "-v",               action = "count",                     help = "set verbose loglevel")
+    parser.add_argument(   "-p", "--port",     type = str, default = "/dev/ttyUSB0", help = "path serial device (default = \"/dev/ttyUSB0\")")
+    parser.add_argument(   "-b", "--baud",     type = int, default = 115200,         help = "baud rate (default = 115200)")
+    operation.add_argument("-u", "--upload",   type = str,                           help = "path on MicroPython device where the uploaded file shall be saved")
+    operation.add_argument("-d", "--download", type = str,                           help = "path on MicroPython device of file to be downloaded")
+    operation.add_argument("-r", "--remove",   type = str,                           help = "path on MicroPython device of file or directory to be deleted")
+    operation.add_argument("-l", "--list",     type = str,                           help = "path on MicroPython device of directory to list contents of")
+    operation.add_argument("-m", "--mkdir",    type = str,                           help = "path on MicroPython device of directory to be created")
+    parser.add_argument(   "-f", "--file",     type = str, default = "",             help = "path on local filesystem of file to be uploaded from or downloaded to")
     args = parser.parse_args()
     return args
 
