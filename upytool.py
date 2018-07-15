@@ -55,16 +55,16 @@ def open_upy(port, baud):
     sleep(0.5)
     upy.write(b'\x03')
     upy.flush()
-    log.debug(upy.read_until(b'>>> ').decode("utf-8", errors='ignore'))
+    log.debug(upy.read_until(b'>>> ').decode(errors='ignore'))
     sleep(0.01)
     if upy.in_waiting:
-        log.debug(upy.read_until(b'>>> ').decode("utf-8", errors='ignore'))
+        log.debug(upy.read_until(b'>>> ').decode(errors='ignore'))
     return upy
 
 def command(upy, cmd):
-    upy.write(cmd.encode("utf-8")+b'\r\n')
+    upy.write(cmd.encode()+b'\r\n')
     upy.flush()
-    result = upy.read_until(b'>>> ').decode("utf-8", errors='ignore')
+    result = upy.read_until(b'>>> ').decode(errors='ignore')
     log.debug(result)
     return result[len(cmd)+2:-6]
 
@@ -77,7 +77,7 @@ def upload(upy, path, file):
     with open(file, "rb") as src:
         command(upy, "from ubinascii import unhexlify")
         command(upy, "des = open(\"%s\", \"wb\")" % path)
-        hex_str = hexlify(src.read()).decode("utf-8")
+        hex_str = hexlify(src.read()).decode()
         for i in range(0, len(hex_str), CHUNK_SIZE):
             command(upy, "des.write(unhexlify(b'%s'))" % hex_str[i:i+CHUNK_SIZE])
         command(upy, "des.close()")
