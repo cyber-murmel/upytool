@@ -60,3 +60,12 @@ The Directory will be automatically created.
 ```
 for f in `find ./ -type f`; { ~/curr/Software\ Proejcts/upytool/upytool.py -u ${f:1} -f $f }
 ```
+
+## Tips and Tricks
+
+### Adding to path
+```
+sudo cp upytool.py /usr/local/bin/upytool
+sudo chown root:root /usr/local/bin/upytool
+sudo chmod 755 /usr/local/bin/upytool
+```
